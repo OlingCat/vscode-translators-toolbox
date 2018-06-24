@@ -2,7 +2,7 @@
     "name": "vscode-translators-toolbox",
     "displayName": "Translators' Toolbox",
     "description": "Some handy utilities for translate.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "OlingCat",
     "license": "LGPL-3.0-or-later",
     "preview": true,
@@ -22,16 +22,20 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.duplicateForTrans",
-            "title": "Duplicate current paragraphs for translate"
-        }],
-        "keybindings": [{
-            "command": "extension.duplicateForTrans",
-            "key": "alt+d",
-            "mac": "cmd+d",
-            "when": "editorTextFocus"
-        }]
+        "commands": [
+            {
+                "command": "extension.duplicateForTrans",
+                "title": "Duplicate current paragraphs for translate"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.duplicateForTrans",
+                "key": "alt+d",
+                "mac": "cmd+d",
+                "when": "editorTextFocus"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",

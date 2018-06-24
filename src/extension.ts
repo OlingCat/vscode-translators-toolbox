@@ -55,7 +55,13 @@ function getCurrentRange(editor: TextEditor): Range {
 
     // Get current document and cursor position
     let doc = editor.document;
-    let regexp = /\n\n+/gm;
+
+    let regexpTable = {
+        [vscode.EndOfLine.LF]: /\n\n+/gm,
+        [vscode.EndOfLine.CRLF]: /\r\n(\r\n)+/gm
+    }
+
+    let regexp = regexpTable[doc.eol];
 
     let docContent = doc.getText();
     let cursorPosition: Position = editor.selection.active;

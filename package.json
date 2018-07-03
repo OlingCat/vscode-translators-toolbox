@@ -48,8 +48,8 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.6",
         "tslint": "^5.8.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "@types/node": "^10.5.1",
+        "@types/mocha": "^5.2.4"
     },
     "bugs": {
         "url": "https://github.com/OlingCat/vscode-translators-toolbox/issues",

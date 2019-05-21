@@ -22,10 +22,25 @@
     ],
     "main": "./out/extension",
     "contributes": {
+        "configuration":[
+            {
+                "title": "Translators' Toolbox",
+                "properties": {
+                    "trans.enclose": {
+                        "type": "array",
+                        "default": {
+                            "txt": { "start": "", "end": "" }
+                        },
+                        "description": "Translators' Toolbox: Enclosing paragraph with custom delimiters",
+                        "scope": "resource"
+                    }
+                }
+            }
+        ],
         "commands": [
             {
                 "command": "extension.duplicateForTrans",
-                "title": "Duplicate current paragraphs for translate"
+                "title": "Duplicate current paragraph for translate"
             }
         ],
         "keybindings": [
@@ -49,7 +64,7 @@
         "@types/node": "^7.10.2",
         "tslint": "^5.12.0",
         "typescript": "^2.6.1",
-        "vscode": "^1.1.26"
+        "vscode": "^1.1.34"
     },
     "bugs": {
         "url": "https://github.com/OlingCat/vscode-translators-toolbox/issues",
@@ -59,5 +74,6 @@
         "type": "git",
         "url": "https://github.com/OlingCat/vscode-translators-toolbox.git"
     },
-    "homepage": "https://github.com/OlingCat/vscode-translators-toolbox/blob/master/README.md"
+    "homepage": "https://github.com/OlingCat/vscode-translators-toolbox/blob/master/README.md",
+    "dependencies": {}
 }

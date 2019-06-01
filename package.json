@@ -2,7 +2,7 @@
     "name": "vscode-translators-toolbox",
     "displayName": "Translators' Toolbox",
     "description": "Some handy utilities for translate.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "OlingCat",
     "license": "LGPL-3.0-or-later",
     "preview": true,

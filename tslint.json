@@ -1,6 +1,6 @@
 {
     "extends": "tslint:latest",
-    "rulesDirectory": "built/local/tslint/rules",
+    // "rulesDirectory": "built/local/tslint/rules",
     "rules": {
         "no-unnecessary-type-assertion": true,
 
@@ -33,7 +33,7 @@
         "interface-name": [true, "never-prefix"],
         "interface-over-type-literal": true,
         "jsdoc-format": true,
-        "linebreak-style": [true, "LF"],
+        "linebreak-style": [true, "CRLF"],
         "next-line": [true,
             "check-catch",
             "check-else"
@@ -59,10 +59,10 @@
             "check-whitespace"
         ],
         "only-arrow-functions": [
-			true,
-			"allow-declarations",
-			"allow-named-functions"
-		],
+            true,
+            "allow-declarations",
+            "allow-named-functions"
+        ],
         "prefer-const": true,
         "quotemark": [true,
             "double",
@@ -104,10 +104,10 @@
         "no-implicit-dependencies": [true, "dev"],
         "object-literal-key-quotes": [true, "consistent-as-needed"],
         "variable-name": [
-			true,
-			"ban-keywords",
-			"check-format",
-			"allow-leading-underscore"],
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore"],
 
         // TODO
         "arrow-parens": false, // [true, "ban-single-arg-parens"]
@@ -144,5 +144,5 @@
         "no-reference": false,
         "object-literal-sort-keys": false,
         "one-variable-per-declaration": false
-	}
+    }
 }

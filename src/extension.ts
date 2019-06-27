@@ -1,6 +1,5 @@
 "use strict";
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+
 import * as vscode from "vscode";
 import * as path from "path";
 
@@ -11,23 +10,19 @@ import Position = vscode.Position;
 import Selection = vscode.Selection;
 import TextEditor = vscode.TextEditor;
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with  registerCommand
-  // The commandId parameter must match the command field in package.json
+
   const dupForTrans =
-      Commands.registerTextEditorCommand("extension.duplicateForTrans", () => {
-        // Get the current text editor
-        const editor = Window.activeTextEditor;
-        if (!editor) {
-          Window.showInformationMessage(
-              "Open a file first to manipulate text selections");
-          return;
-        }
-        duplicateForTrans(editor);
-      });
+    Commands.registerTextEditorCommand("extension.duplicateForTrans", () => {
+
+      const editor = Window.activeTextEditor;
+      if (!editor) {
+        Window.showInformationMessage(
+          "Open a file first to manipulate text selections");
+        return;
+      }
+      duplicateForTrans(editor);
+    });
 
   context.subscriptions.push(dupForTrans);
 }
@@ -40,18 +35,22 @@ function duplicateForTrans(editor: TextEditor) {
   const uri = editor.document.uri;
   const fileName = editor.document.fileName;
   const fileExt = path.extname(fileName).slice(1);
-  const encloseDelimiters: any =
-      vscode.workspace.getConfiguration("", uri).get("trans.enclose");
+  const enclosingDelimiters: any =
+    vscode.workspace.getConfiguration("", uri).get("trans.enclose");
 
   // enclose with customed delimiters or just comment it
-  if (fileExt in encloseDelimiters) {
+  if (fileExt in enclosingDelimiters) {
     editor.edit((e) => {
-      e.insert(currentRange.start, encloseDelimiters[fileExt].start + "\n");
-      e.insert(currentRange.end, "\n" + encloseDelimiters[fileExt].end);
-      // append duplicated text
-      e.insert(currentRange.end, newText);
+      const delimiter: any = enclosingDelimiters[fileExt];
+      const textWithDelimiters =
+        delimiter.start + "\n"
+        + currentText
+        + "\n" + delimiter.end
+        + "\n\n";
+      e.insert(currentRange.start, textWithDelimiters);
+      // move cursor to new position
+      moveCursorTo(editor, new Position(currentRange.start.line, 0));
     });
-    Commands.executeCommand("cursorMove", { to: "down", by: "line", select: false, value: 4 });
   } else {
     // append duplicated text
     editor.edit((e) => {
@@ -69,11 +68,11 @@ function getCurrentRange(editor: TextEditor): Range {
   const doc = editor.document;
   let cursorPosition: Position = editor.selection.active;
 
+  // get regexp for corresponding EOL
   const regexpTable = {
     [vscode.EndOfLine.LF]: /\n\n+/gm,
     [vscode.EndOfLine.CRLF]: /\r\n(\r\n)+/gm
   };
-
   const regexp = regexpTable[doc.eol];
 
   const docContent = doc.getText();
@@ -103,7 +102,7 @@ function getCurrentRange(editor: TextEditor): Range {
       const p = new Range(doc.positionAt(start), doc.positionAt(match.index));
       // cursor is in current paragraph
       if (cursorPosition.isAfterOrEqual(p.start) &&
-          cursorPosition.isBeforeOrEqual(p.end)) {
+        cursorPosition.isBeforeOrEqual(p.end)) {
         currentParagraph = p;
         return currentParagraph;
       }
@@ -116,6 +115,12 @@ function getCurrentRange(editor: TextEditor): Range {
   }
 }
 
+// move cursor to specific position
+function moveCursorTo(editor: TextEditor, position: Position) {
+  const newSelection = new vscode.Selection(position, position);
+  editor.selection = newSelection;
+}
+
 // this method is called when your extension is deactivated
 // tslint:disable-next-line: no-empty
-export function deactivate() {}
+export function deactivate() { }

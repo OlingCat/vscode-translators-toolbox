@@ -80,5 +80,7 @@
         "url": "https://github.com/OlingCat/vscode-translators-toolbox.git"
     },
     "homepage": "https://github.com/OlingCat/vscode-translators-toolbox/blob/master/README.md",
-    "dependencies": {}
+    "dependencies": {
+        "@types/fancy-log": "^1.3.1"
+    }
 }
